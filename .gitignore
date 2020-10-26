@@ -1,0 +1,15 @@
+# python
+__pycache__/
+
+# django
+*/migrations/
+
+# sqlite
+*.sqlite3
+
+# vim
+*.un~
+vimlog
+
+# vscode
+.vscode/
