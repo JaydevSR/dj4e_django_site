@@ -1,23 +1,11 @@
-<!DOCTYPE html>
 <html>
-    <h1>Hello World and Welcome to this Django site</h1>
-    <h2><em>I am Learning Django</em></h2>
-    <p>Code of dj4e: fb3ea77a</p>
-    <ul>
-        <li>
-            <p><a href="/polls">A Polls Application</a></p>
-        </li>
-        <li>
-            <p><a href="/hello">Test the session</a></p>
-        </li>
-        <li>
-            <p><a href="/authz">User authentication</a></p>
-        </li>
-        <li>
-            <p><a href="/autos">Autos CRUD</a></p>
-        </li>
-        <li>
-            <p><a href="/cats">Cats CRUD</a></p>
-        </li>
-    </ul>
+    <head>
+        <title>{{ settings.APP_NAME }}</title>
+    </head>
+    <body>
+        <h1>Welcome to {{ settings.APP_NAME }}</h1>
+        <p>
+        Hello world.
+        </p>
+    </body>
 </html>
