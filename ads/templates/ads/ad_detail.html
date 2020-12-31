@@ -33,8 +33,8 @@
     {% endif %}
 </span>
 <h1>{{ ad.title }}</h1>
-{% if pic.content_type %}
-<img style="float:right; max-width:50%;" src="{% url 'pics:pic_picture' pic.id %}"
+{% if ad.content_type %}
+<img style="float:right; max-width:50%;" src="{% url 'ads:ad_picture' ad.id %}"
     onclick="document.getElementById('overlay').style.display = 'block';">
 {% endif %}
 <p>
