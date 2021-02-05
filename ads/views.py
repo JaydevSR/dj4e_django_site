@@ -13,6 +13,9 @@ from .forms import CreateForm, CommentForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.db.utils import IntegrityError
+from django.contrib.humanize.templatetags.humanize import naturaltime
+
+from django.db.models import Q
 
 
 class AdListView(OwnerListView):
@@ -20,14 +23,25 @@ class AdListView(OwnerListView):
     template_name = "ads/ad_list.html"
 
     def get(self, request):
-        ad_list = Ad.objects.all()
+        srchval = request.GET.get("search", False)
         favorites = list()
 
         if request.user.is_authenticated:
             rows = request.user.favorite_ads.values('id')
 
             favorites = [row['id'] for row in rows]
-        ctx = {'ad_list': ad_list, 'favorites': favorites}
+
+        if srchval:
+            query = Q(title__icontains=srchval) | Q(text__icontains=srchval)
+            ad_list = Ad.objects.filter(query).select_related().order_by("-updated_at")
+            
+        else:
+            ad_list = Ad.objects.all().order_by("-updated_at")
+
+        for ad in ad_list:
+            ad.natural_updated = naturaltime(ad.updated_at)
+
+        ctx = {'ad_list': ad_list, 'favorites': favorites, 'search': srchval}
         return render(request, self.template_name, ctx)
 
 
